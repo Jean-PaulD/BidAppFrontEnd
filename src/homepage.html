@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="keywords" content="making bidding on stuff easy">
+    <meta name="description" content="Come and bid">
+    <meta name="author" content="Jean-Paul De Buys">
+    <title>Make Your Bid</title>
+    <link rel="stylesheet" href="./css/style.css" >
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <script>
+
+        $(document).ready(function() {
+            var name = localStorage.getItem("username");
+
+
+            if(name !== null){
+
+                document.getElementById('logInName').innerHTML = "Logged in as " + name;
+                document.getElementById('logIn').innerHTML = "Sign Out";
+            }
+            else{
+                document.getElementById('logInName').innerHTML = "You are not logged in";
+                document.getElementById('logIn').innerHTML = "Sign in";
+            }
+
+
+
+        });
+        function logOutOrIn(){
+            document.getElementById('logInName').innerHTML = "You are not logged in";
+            document.getElementById('logIn').innerHTML = "Sign in";
+            localStorage.clear();
+            window.location.href = 'login.html';
+        }
+    </script>
+
+</head>
+<body>
+
+<header>
+    <div id="logInName" class="logInName">You are not logged in</div> <br/>
+    <button onclick="logOutOrIn(); return false;" class="logOutButton" id="logIn">Login</button>
+
+    <div class="container">
+        <div id="branding">
+            <h1><span class="highlight">Come</span> and Bid</h1>
+        </div>
+        <nav>
+            <ul>
+                <li class="current"><a href="homepage.html">Home</a></li>
+                <li><a href="allItems.html">View All Items</a></li>
+                <li><a href="addNewItem.html.html">Post Your Item</a></li>
+                <li><a href="homepage.html">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section id="showcase">
+    <div class="container">
+        <h1>Bidding on products made easy</h1>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+        </p>
+    </div>
+</section>
+
+<section id="searchItem">
+    <div class="container">
+        <h1>Search for an item</h1>
+        <form action="#">
+            <input type="textbox" placeholder="Search for an item...">
+            <button type="submit" class="button_1">Search</button>
+        </form>
+    </div>
+</section>
+
+<section id="Boxes">
+    <div class="container">
+        <div class="box">
+            <img class="generalImage" src="./images/img1.jpg" >
+            <h3>HTML5 Markup</h3>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+        </div>
+        <div class="box">
+            <img class="generalImage" src="./images/img2.png" >
+            <h3>CSS Styling</h3>
+            <p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. </p>
+        </div>
+        <div class="box">
+            <img class="generalImage" src="./images/img3.jpg" >
+            <h3>Graphic design</h3>
+            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+        </div>
+
+
+    </div>
+</section>
+
+<footer>
+    <p>Come and bid, copyright &copy; 2017</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="keywords" content="making bidding on stuff easy">
+    <meta name="description" content="Come and bid">
+    <meta name="author" content="Jean-Paul De Buys">
+    <title>Login</title>
+    <link rel="stylesheet" href="./css/style.css" >
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <script>
+
+
+        function login(){
+
+
+            $(document).ready(function() {
+                $.ajax({
+                    url: "http://localhost:8080/demo/login?" +
+                    "userName="+document.getElementById("username").value+"" +
+                    "&password="+document.getElementById("password").value+"" +
+                    ""
+                    //url: "http://localhost:8080/demo/createNewUser?userName=John&firstName=John1&lastname=Paul1&password=1234&reportCounter=3&userType=admin1&email=abc"
+
+                }).then(function(data) {
+
+                    dataType: 'json';
+                    //alert("data = "+ data[0].username);
+
+
+                    if(data.toString() !== ""){
+                        //alert("Login Successful");
+                        localStorage.clear();
+                        localStorage.setItem('username', data[0].username);
+                        localStorage.setItem('userID', data[0].id);
+                        window.location.href = 'homepage.html';
+                    }
+                    else{
+                        localStorage.clear();
+                        alert("Login failed");
+                    }
+
+                });
+            });
+
+        }
+
+    </script>
+
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <div id="branding">
+            <h1><span class="highlight">Come</span> and Bid</h1>
+        </div>
+        <nav>
+            <ul>
+                <li class="current"><a href="homepage.html">Home</a></li>
+                <li><a href="allItems.html">View All Items</a></li>
+                <li><a href="addNewItem.html.html">Post Your Item</a></li>
+                <li><a href="homepage.html">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section id="login">
+    <div class="container">
+
+            <form id="loginForm"><br>
+                <input type="textbox" id="username" placeholder="username"> <br>
+                <input type="password" id="password" placeholder="password"><br><br>
+                <button class="button_1" onclick="login(); return false;">Login</button>
+                <button class="button_1"  >Create account</button>
+            </form>
+
+    </div>
+
+</section>
+
+</body>
+
+<footer>
+    <p>Come and bid, copyright &copy; 2017</p>
+</footer>
+
+</html>

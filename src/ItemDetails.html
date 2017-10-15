@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="keywords" content="making bidding on stuff easy">
+    <meta name="description" content="Come and bid">
+    <meta name="author" content="Jean-Paul De Buys">
+    <title>Item Details</title>
+    <link rel="stylesheet" href="./css/style.css" >
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" />
+    <script src="./scripts/jsController.js"></script>
+    <script>
+        var highestBidOwner = "";
+        var currentItemID = "";
+        var name = localStorage.getItem("username");
+        var userID = localStorage.getItem("userID");
+        var itemOwner = "";
+        $(document).ready(function() {
+
+            if(name !== null){
+
+                document.getElementById('logInName').innerHTML = "Logged in as " + name;
+                document.getElementById('logIn').innerHTML = "Sign Out";
+            }
+            else{
+                document.getElementById('logInName').innerHTML = "You are not logged in";
+                document.getElementById('logIn').innerHTML = "Sign in";
+            }
+
+            var FULLURL = window.location.search.substring(1);
+            var ParametersArray = FULLURL.split('=');
+
+            $.getJSON('http://localhost:8080/demo/getOneItem?itemID=' + ParametersArray[1]+''
+                , function (data) {
+                $.each(data, function (index) {
+                    // alert(data[index].TEST1);
+                    $('#ItemName').append(data[index].itemName);
+                    $('#Price').append(data[index].itemValue);
+                    $('#Description').append(data[index].description);
+                    $('#HighestBidder').append(data[index].bidOwnerName);
+                    $('#HighestBidAmount').append(data[index].bidAmount);
+                    $('#OP').append(data[index].username);
+                    itemOwner = data[index].username;
+                    highestBidOwner = data[index].bidOwnerName;
+                    currentItemID = ParametersArray[1];
+
+                    document.getElementById("deleteItem").style.visibility = 'hidden';
+                    if(itemOwner===name){
+                       // alert("if item owner:"+itemOwner+" matches logged in name: "+name);
+                        document.getElementById("deleteItem").style.visibility = 'visible';
+                    }
+                    else{
+                        //alert("if item owner:"+itemOwner+" does not match logged in name: "+name);
+                        document.getElementById("deleteItem").style.visibility = 'hidden';
+                    }
+                });
+            });
+
+            document.getElementById("confirmBid").style.visibility = "hidden";
+            document.getElementById("makeBidAmount").style.visibility = "hidden";
+            document.getElementById("deleteItem").style.visibility = 'hidden';
+            if(itemOwner===name){
+                alert("if item owner:"+itemOwner+" matches logged in name: "+name);
+                document.getElementById("deleteItem").style.visibility = 'visible';
+            }
+            else{
+                //alert("if item owner:"+itemOwner+" does not match logged in name: "+name);
+                document.getElementById("deleteItem").style.visibility = 'hidden';
+            }
+
+        });
+//
+//        $(document).ready(function() {
+//
+//
+//        });
+
+        function logOutOrIn(){
+            document.getElementById('logInName').innerHTML = "You are not logged in";
+            document.getElementById('logIn').innerHTML = "Sign in";
+            localStorage.clear();
+            window.location.href = 'login.html';
+        }
+
+        function openMenu(){
+            document.getElementById("confirmBid").style.visibility = 'visible';
+            document.getElementById("makeBidAmount").style.visibility = 'visible';
+
+        }
+
+        function makeBid(){
+
+
+            var tempUserName = localStorage.getItem("username")
+            if(tempUserName !== null ){
+                processBid();
+            }
+            else{
+                alert("You need to log in to make a bid");
+            }
+        }
+
+        function processBid(){
+
+            $.ajax({
+
+                //http://localhost:8080/demo/BidOnOneitem?username=Abraham&bidAmount=800&itemId=item3
+                url: "http://localhost:8080/demo/BidOnOneitem?newBidUserID="+userID+
+                "&bidAmount="+document.getElementById("makeBidAmount").value+
+                "&itemId="+currentItemID+
+                ""
+
+                //url: "http://localhost:8080/demo/createNewUser?userName=John&firstName=John1&lastname=Paul1&password=1234&reportCounter=3&userType=admin1&email=abc"
+
+            }).then(function(data) {
+
+                    var yourBidNumber = parseFloat(document.getElementById("makeBidAmount").value, 2);
+                    var databaseBidNumber = parseFloat(data[0].bidAmount, 2);
+
+//                       if(data[0].bidOwnerName !== name){
+                        if(yourBidNumber >= databaseBidNumber){
+                            alert("bid approved");
+                            location.reload();
+                        }
+                        else {
+                            alert("Your bid amount is too low")
+                        }
+
+//                    }
+//                    else {
+//                        alert("Bid not approved!");
+//                    }
+            });
+        }
+
+        function deleteItem(){
+            if(itemOwner===name) {
+                $.ajax({
+                    url: "http://localhost:8080/demo/deleteItem?itemID=" + currentItemID +
+                    ""
+                }).then(function (data) {
+                    alert("Item deleted");
+                    window.location.href = 'allItems.html';
+                });
+
+                //window.location.href = 'allItems.html';
+            }
+            else{
+                alert("You need to be logged in to delete an item")
+            }
+        }
+
+    </script>
+
+</head>
+<body>
+
+<header>
+    <div id="logInName" class="logInName">You are not logged in</div> <br/>
+    <button onclick="logOutOrIn(); return false;" class="logOutButton" id="logIn">Login</button>
+
+    <div class="container">
+        <div id="branding">
+            <h1><span class="highlight">Come</span> and Bid</h1>
+        </div>
+        <nav>
+            <ul>
+                <li class="current"><a href="homepage.html">Home</a></li>
+                <li><a href="allItems.html">View All Items</a></li>
+                <li><a href="addNewItem.html.html">Post Your Item</a></li>
+                <li><a href="homepage.html">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="outline" style="margin-top: 1%">
+    <br/>
+    <div class="itemList" id="ItemName">Item Name: </div> <br/>
+    <div class="itemList" id="Price">Price R: </div> <br/>
+    <div class="itemList" id="Description">Description: </div> <br/>
+    <div class="itemList" id="HighestBidder" >Highest Bidder: </div> <br/>
+    <div class="itemList" id="HighestBidAmount">Highest Bid Amount: </div> <br/>
+    <div class="itemList" id="OP">Original Poster: </div> <br/>
+    <br/>
+    <button class="button_1"  id="bidOnItem" onclick="openMenu(); return false;" style="margin-left: 39px">Bid on item</button>
+    <button class="button_1"  id="deleteItem" onclick="deleteItem(); return false;" style="margin-left: 2px;">Delete Item</button>
+    <br/><br/>
+    <input type="textbox" style="" id="makeBidAmount" placeholder="Bid Amount R:" />
+    <button class="button_1"  id="confirmBid" onclick="makeBid(); return false;" >Confirm Bid</button>
+
+    <br/><br/>
+
+</section>
+
+
+
+</body>
+
+<footer>
+    <p>Come and bid, copyright &copy; 2017</p>
+</footer>
+</html>

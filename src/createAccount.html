@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="keywords" content="making bidding on stuff easy">
+    <meta name="description" content="Come and bid">
+    <meta name="author" content="Jean-Paul De Buys">
+    <title>Create Account</title>
+    <link rel="stylesheet" href="./css/style.css" >
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" />
+    <script src="./scripts/jsController.js"></script>
+    <script>
+
+        function createUser() {
+
+            //document.getElementById("userExistorSaved").innerHTML ="this part worked";
+            $(document).ready(function() {
+
+
+
+
+                $.ajax({
+                    url: "http://localhost:8080/demo/createNewUser?" +
+                    "userName="+document.getElementById("username").value+"" +
+                    "&firstName="+document.getElementById("firstName").value+"" +
+                    "&lastname="+document.getElementById("lastName").value+"" +
+                    "&password="+document.getElementById("password").value+"" +
+                    "&email="+document.getElementById("email").value+"" +
+                    "&userType="+"Normal"+"" +
+                    "&reportCounter="+"0"+"" +
+                    ""
+
+                    //url: "http://localhost:8080/demo/createNewUser?userName=John&firstName=John1&lastname=Paul1&password=1234&reportCounter=3&userType=admin1&email=abc"
+
+                }).then(function(data) {
+
+
+                   if(data.toString() !== ""){
+
+                       document.getElementById("userExistorSaved").innerHTML = "New User created";
+                   }
+                   else {
+                       document.getElementById("userExistorSaved").innerHTML ="User already exists";
+                   }
+
+                });
+            });
+        }
+
+        $(document).ready(function() {
+            var name = localStorage.getItem("username");
+
+
+            if(name !== null){
+
+                document.getElementById('logInName').innerHTML = "Logged in as " + name;
+                document.getElementById('logIn').innerHTML = "Sign Out";
+            }
+            else{
+                document.getElementById('logInName').innerHTML = "You are not logged in";
+                document.getElementById('logIn').innerHTML = "Sign in";
+            }
+
+
+
+        });
+
+        function logOutOrIn(){
+            document.getElementById('logInName').innerHTML = "You are not logged in";
+            document.getElementById('logIn').innerHTML = "Sign in";
+            localStorage.clear();
+            window.location.href = 'login.html';
+        }
+    </script>
+
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <div id="branding">
+            <h1><span class="highlight">Come</span> and Bid</h1>
+        </div>
+        <nav>
+            <ul>
+                <li class="current"><a href="homepage.html">Home</a></li>
+                <li><a href="allItems.html">View All Items</a></li>
+                <li><a href="addNewItem.html.html">Post Your Item</a></li>
+                <li><a href="homepage.html">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section id="addUser">
+    <div class="container"> <br>
+        <form>
+            <input type="textbox" id="username" placeholder="Username" />
+            <br />
+            <input type="password" id="password" placeholder="Password" />
+            <br />
+            <input type="textbox" id="firstName"  placeholder="First Name"/>
+            <br />
+            <input type="textbox" id="lastName"  placeholder="Last Name"/>
+            <br />
+            <input type="email" id="email" placeholder="Email" />
+            <br /><br />
+            <button class="button_1" onclick="createUser(); return false;">Add User</button>
+            <div id="userExistorSaved"></div>
+        </form>
+    </div>
+</section>
+
+</body>
+<footer>
+    <p>Come and bid, copyright &copy; 2017</p>
+</footer>
+
+</html>

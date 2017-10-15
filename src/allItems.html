@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="keywords" content="making bidding on stuff easy">
+    <meta name="description" content="Come and bid">
+    <meta name="author" content="Jean-Paul De Buys">
+    <title>All Items</title>
+    <link rel="stylesheet" href="./css/style.css" >
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script>
+
+
+       $(document).ready(function() {
+
+
+           $.getJSON('http://localhost:8080/demo/allItems', function (data) {
+               $.each(data, function (index) {
+                   // alert(data[index].TEST1);
+                   $("<br/> <a href='ItemDetails.html?itemID="+data[index].id+"' > <div class=\"itemList\">"
+                       + data[index].itemName+ "<div class=\"hideMe\">" +data[index].id+ "</div> </div></a> <br/>")
+                       .prependTo(".outline")
+
+               });
+           });
+       });
+
+
+       //localstorage.testMe = "test this";
+       //localstorage.setItem("testMe", " IT WORKS!!!");
+       $(document).ready(function() {
+           var name = localStorage.getItem("username");
+
+
+           if(name !== null){
+
+               document.getElementById('logInName').innerHTML = "Logged in as " + name;
+               document.getElementById('logIn').innerHTML = "Sign Out";
+           }
+           else{
+               document.getElementById('logInName').innerHTML = "You are not logged in";
+               document.getElementById('logIn').innerHTML = "Sign in";
+           }
+
+
+
+       });
+       function logOutOrIn(){
+           document.getElementById('logInName').innerHTML = "You are not logged in";
+           document.getElementById('logIn').innerHTML = "Sign in";
+           localStorage.clear();
+           window.location.href = 'login.html';
+       }
+    </script>
+</head>
+<body>
+
+
+
+<header>
+    <div id="logInName" class="logInName">You are not logged in</div> <br/>
+    <button onclick="logOutOrIn(); return false;" class="logOutButton" id="logIn">Login</button>
+
+    <div class="container">
+        <div id="branding">
+            <h1><span class="highlight">Come</span> and Bid</h1>
+        </div>
+        <nav>
+            <ul>
+                <li class="current"><a href="homepage.html">Home</a></li>
+                <li><a href="allItems.html">View All Items</a></li>
+                <li><a href="addNewItem.html.html">Post Your Item</a></li>
+                <li><a href="homepage.html">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="outline">
+    <br/>
+
+    <div class="itemList"> <div class="hideMe">hidden test</div> </div> </div> <br/><br/>
+
+</section>
+
+</body>
+<footer>
+    <p>Come and bid, copyright &copy; 2017</p>
+</footer>
+
+
+</html>

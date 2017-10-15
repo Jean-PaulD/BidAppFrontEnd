@@ -1,0 +1,226 @@
+body{
+    font-family: Arial, Helveitca, sans-serif;
+    font-size: 15px;
+    line-size: 1.5;
+    padding: 0;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+/*global */
+
+.logInName{
+    float:right;
+}
+
+.logOutButton{
+    float:right;
+    background: #35424a;
+    border: none;
+    color: white;
+}
+
+.container{
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+ul{
+    margin: 0;
+    padding: 0;
+}
+
+.button_1{
+    height: 38px;
+    background: #e8491d;
+    border: none;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: white;
+
+}
+
+/*header **/
+header{
+    background: #35424a;
+    color: #ffffff;
+    padding-top: 30px;
+    min-height: 70px;
+    border-bottom: #e8491d 3px solid;
+}
+
+header a{
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    front-size: 16px;
+}
+
+header ul{
+    margin: 0;
+    padding: 0;
+}
+
+header li{
+    float: left;
+    display: inline;
+    padding: 0 20px 0 20px;
+}
+
+header #branding{
+    float: left;
+}
+
+header #branding h1{
+    marign: 0px;
+}
+
+header nav{
+    float: right;
+    margin-top: 35px;
+}
+
+header .highlight, header .current a{
+    color: #e8491d;
+    font-weight: bold;
+}
+
+header a:hover{
+    color: #cccccc;
+    font-weight:bold;
+}
+
+
+/*showcase **/
+#showcase{
+    min-height: 400px;
+    background: url('../images/showcase.jpg') no-repeat;
+    text-align: center;
+    color: black;
+}
+
+#showcase h1{
+    margin-top: 100px;
+    font-size: 55px;
+    margin-bottom: 10px;
+}
+
+#showcase p{
+    font-size: 20px;
+}
+
+#searchItem{
+    padding: 15px;
+    color: white;
+    background: #35424a;
+}
+
+#searchItem h1{
+    float: left;
+}
+
+#searchItem form{
+    float: right;
+}
+
+#searchItem input[type="textbox"]{
+    padding: 4px;
+    height: 25px;
+    width: 250px;
+}
+
+
+/*boxes */
+#boxes{
+    margin-top: 20px;
+}
+
+.box {
+    float: left;
+    text-align: center;
+    width: 30%;
+    padding: 10px;
+}
+
+#boxes .box img{
+    width: 90px;
+}
+
+footer{
+    padding: 20px;
+    margin-top: 20px;
+    color: white;
+    background-color: #e8491d;
+    text-align: center;
+}
+
+/*images **/
+.generalImage{
+    width: 300px;
+    height: 300px;
+}
+
+/* Login page */
+#login input[type="textbox"]{
+    padding: 4px;
+    height: 25px;
+    width: 195px;
+}
+
+#login input[type="password"]{
+    padding: 4px;
+    height: 25px;
+    width: 195px;
+}
+
+#loginForm{
+
+    margin-left: 350px;
+}
+
+#backgroundShade{
+    background-color: grey;
+}
+
+/*create/add user page */
+#addUser input[type="textbox"]{
+    padding: 4px;
+    height: 25px;
+    width: 195px;
+}
+#addUser input[type="password"]{
+    padding: 4px;
+    height: 25px;
+    width: 195px;
+}
+
+#addUser input[type="email"]{
+    padding: 4px;
+    height: 25px;
+    width: 195px;
+}
+
+/* items section */
+.itemList {
+    float: left;
+    margin-left: 10%;
+
+}
+
+.outline{
+    background-color: lightgrey;
+    width: 30%;
+    margin-left: 10%;
+}
+
+.hideMe{
+    display: none;
+}
+
+/* make bid */
+#makeBidAmount{
+    width: 103px;
+    margin-left: 38px;
+    height: 34px;
+}
